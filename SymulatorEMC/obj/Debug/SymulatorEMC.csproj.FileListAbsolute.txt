@@ -1,0 +1,10 @@
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\bin\Debug\SymulatorEMC.exe.config
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\bin\Debug\SymulatorEMC.exe
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\bin\Debug\SymulatorEMC.pdb
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.csprojAssemblyReference.cache
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.EMC_Simulator.resources
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.Properties.Resources.resources
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.csproj.GenerateResource.cache
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.csproj.CoreCompileInputs.cache
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.exe
+C:\Users\Filip Kowalski\Desktop\SymulatorEMC\SymulatorEMC\obj\Debug\SymulatorEMC.pdb
