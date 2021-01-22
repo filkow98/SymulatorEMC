@@ -14,7 +14,6 @@ namespace SymulatorEMC
     public partial class EMC_Simulator : Form
     {
         bool connectionState = false;
-        string steps="";
         string current_step="";
         int currentStepsCount = 0;
         int maxSteps = 10;
@@ -24,6 +23,7 @@ namespace SymulatorEMC
         public EMC_Simulator()
         {
             InitializeComponent();
+            button3.Enabled = false;
             checkBox1.Checked = true;
             ports = SerialPort.GetPortNames();
             foreach (string port in ports)
@@ -62,55 +62,26 @@ namespace SymulatorEMC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (currentStepsCount < maxSteps && numericUpDown1.Text.Length > 0 && numericUpDown2.Text.Length>0)
+            if (currentStepsCount < maxSteps && numericUpDown1.Text.Length > 0 
+                && numericUpDown2.Text.Length>0)
             {
                 current_step = "";
                 //jeśli jest 0 to kierunek jest normalny jeśli 1 to odwrócony
                 int state = checkBox1.Checked == true ? 0 : 1;
-                current_step +=  "State:" + state + ";Time:" + numericUpDown1.Value + ";FinalFreq:" + numericUpDown2.Value;
+                current_step +=  "Direction:" + state + ";Time:" 
+                    + numericUpDown1.Value + ";FinalFreq:" 
+                    + numericUpDown2.Value;
                 currentStepsCount++;
-                steps += current_step;
                 listBox1.Items.Add(current_step);
             }
-            Console.WriteLine(steps);
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
+     
 
         private void button4_Click(object sender, EventArgs e)
         {
             listBox1.Items.Remove(listBox1.SelectedItem);
             currentStepsCount--;
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -120,35 +91,26 @@ namespace SymulatorEMC
             {
                 string[] tmp_record;
                 string[] tmp_elem;
-                string message = "StartLoad;";
-                port.Write(message);
-                Task.Delay(1000);
-                message = listBox1.Items.Count.ToString() + ";";     //ilość rekordów
-                port.Write(message);//ilość etapów
-                Task.Delay(1000);
+                string message = "StartLoad,";
+                message += listBox1.Items.Count.ToString() + ",";     //ilość rekordów
 
                 foreach (string i in listBox1.Items)
                 {
                     tmp_record = i.Split(';');
                     tmp_elem = tmp_record[0].Split(':');        //kierunek przepływu prądu
-                    message = tmp_elem[1] + ";";
-                    port.Write(message);
-                    Task.Delay(1000);
+                    message += tmp_elem[1] + ",";
                     tmp_elem = tmp_record[1].Split(':');        //czas etapu
-                    message = tmp_elem[1] + ";";
-                    port.Write(message);
-                    Task.Delay(1000);
+                    message += tmp_elem[1] + ",";
                     tmp_elem = tmp_record[2].Split(':');        //docelowa częstotliwość
-                    message = tmp_elem[1] + ";";
-                    port.Write(message);
-                    Task.Delay(1000);
+                    message += tmp_elem[1] + ",";
                 }
-                message = "EndLoad;";
+                message += "EndLoad#";
                 port.Write(message);
                 MessageBox.Show("Dane zostały wysłane pomyślnie.");
             }
             catch (Exception ex) {
-                MessageBox.Show("Nie udało się wgrać danych na urządzenie! Sprawdz swoje podłączenie do urządzenia.");
+                MessageBox.Show("Nie udało się wgrać danych na urządzenie!" +
+                    " Sprawdz swoje podłączenie do urządzenia.");
             }
         }
 
@@ -165,7 +127,7 @@ namespace SymulatorEMC
                 if (connectionState)
                 {
                     connectionState = false;
-                    port.Write("DISCONNECT");
+                    port.Write("DISCONNECT#");
                     port.Close();
                     button1.Text = "Połącz";
                     button3.Enabled = false;
@@ -175,10 +137,10 @@ namespace SymulatorEMC
                 else if(!connectionState && comboBox1.Items.Count!=0)
                 {
                     string curr_port = comboBox1.SelectedItem.ToString();
-                    port = new SerialPort(curr_port, 9600, Parity.None, 8, StopBits.One);
+                    port = new SerialPort(curr_port, 115200, Parity.None, 8, StopBits.One);
                     port.Open();
                     connectionState = true;
-                    port.Write("CONNECT");
+                    port.Write("CONNECT#");
                     button1.Text = "Rozłącz";
                     button3.Enabled = true;
                     button6.Enabled = false;
@@ -192,7 +154,7 @@ namespace SymulatorEMC
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
+          
         }
 
         private void button6_Click(object sender, EventArgs e)

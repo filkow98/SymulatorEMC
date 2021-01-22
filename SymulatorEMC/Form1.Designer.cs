@@ -159,9 +159,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(11, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(142, 13);
+            this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Częstotliwość docelowa (Hz)";
+            this.label3.Text = "Częstotliwość (Hz)";
             // 
             // label1
             // 
@@ -258,7 +258,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "EMC_Simulator";
-            this.Text = "Form1";
+            this.Text = "Konfigurator";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
