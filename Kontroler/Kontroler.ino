@@ -16,7 +16,6 @@ const int startAddress =3000;
 //const int numOfStepsAddress = 3000;
 const int pwmPin = 11;
 
-
 void setup()
 {
   Serial.begin(115200);
@@ -36,6 +35,7 @@ void setup()
   pinMode(52,INPUT);
   pinMode(51,OUTPUT);
   pinMode(50,OUTPUT);
+  pinMode(11,OUTPUT);
   digitalWrite(51,HIGH);
   digitalWrite(50,HIGH);
 }
@@ -170,6 +170,9 @@ long readData(int address){
     
 
 void single_step(long s_time, long frequency, int step_number){
+  lcd.clear();
+  lcd.print("Step nr: " + step_number);
+  delay(3000);
   SetPinFrequencySafe(pwmPin, frequency);
   pwmWrite(pwmPin,127);
   unsigned long start_time = millis();
@@ -177,7 +180,7 @@ void single_step(long s_time, long frequency, int step_number){
         unsigned long current_time = millis();
         if((current_time-start_time)%1000==0){
           lcd.clear();
-          lcd.print("Step nr" + String(step_number) + ':' +String((current_time-start_time)/1000) + 's');
+          lcd.print(((current_time-start_time)/1000));
           }
           if((current_time-start_time)/1000>=s_time){
                   break;
